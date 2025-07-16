@@ -13,14 +13,14 @@ init:
 destroy: validate_workspace
 	@echo "Destroying $(layer) in $(env) environment"
 	cd $(layer); \
-	tofu destroy -var-file=../env/${env}/values.tfvars
+	tofu destroy -var-file=../env/${env}/$(layer).tfvars
 
 plan: init validate_workspace
 	@echo "Performing tofu plan over $(layer) in $(env) environment"
 	cd $(layer); \
-	tofu plan -var-file=../env/${env}/values.tfvars
+	tofu plan -var-file=../env/${env}/$(layer).tfvars
 
 apply: validate_workspace
 	@echo "Performing tofu apply over $(layer) in $(env) environment"
 	cd $(layer); \
-	tofu apply -var-file=../env/${env}/values.tfvars -auto-approve
+	tofu apply -var-file=../env/${env}/$(layer).tfvars -auto-approve
