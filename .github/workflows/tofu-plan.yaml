@@ -32,4 +32,4 @@ jobs:
 
       - name: Tofu Plan
         id: plan
-        run: make execute_plan env=development layer=network
+        run: make plan env=development layer=network
