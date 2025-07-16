@@ -1,0 +1,35 @@
+name: "Terraform Plan"
+
+on:
+  pull_request:
+
+env:
+  AWS_REGION : "us-east-1"
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          tofu_version: 1.10.3
+
+      - name: Set up AWS rol
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.GH_ACTIONS_ARN_ROL }}
+          role-session-name: samplerolsessionname
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: "Configure Opentofu"
+        uses: opentofu/setup-opentofu@v1
+
+      - name: Tofu Plan
+        id: plan
+        run: make execute_plan env=development layer=network
