@@ -46,3 +46,15 @@ variable "data_subnet_count" {
     error_message = "Private subnet count must be between 1 and 6."
   }
 }
+
+variable "enable_nat_gateway" {
+  description = "Enable NAT Gateway for private subnets"
+  type        = bool
+  default     = true
+}
+
+variable "single_nat_gateway" {
+  description = "Use single NAT Gateway for all private subnets"
+  type        = bool
+  default     = false
+}
