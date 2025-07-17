@@ -18,9 +18,9 @@ destroy: validate_workspace
 plan: 
 	@echo "Performing tofu plan over $(layer) in $(env) environment"
 	cd $(layer); \
-	tofu plan -var-file=../env/${env}/$(layer).tfvars
+	tofu plan -var-file=../env/${env}/$(layer).tfvars -no-color
 
 apply: 
 	@echo "Performing tofu apply over $(layer) in $(env) environment"
 	cd $(layer); \
-	tofu apply -var-file=../env/${env}/$(layer).tfvars -auto-approve
+	tofu apply -var-file=../env/${env}/$(layer).tfvars -auto-approve -no-color
