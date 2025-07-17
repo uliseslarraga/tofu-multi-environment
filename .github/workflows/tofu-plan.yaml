@@ -14,7 +14,6 @@ jobs:
       contents: read
       pull-requests: write
       id-token: write
-      issues: write
     strategy:
       max-parallel: 1
       matrix:
@@ -62,6 +61,7 @@ jobs:
             })
 
             // 2. Prepare format of the comment
+            const output = `#### OpenTofu Initialization ⚙️\`${{ steps.init.outcome }}\`
             #### OpenTofu Plan 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan</summary>
@@ -72,7 +72,7 @@ jobs:
 
             </details>
 
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
             // 3. If we have a comment, update it, otherwise create a new one
             if (botComment) {
