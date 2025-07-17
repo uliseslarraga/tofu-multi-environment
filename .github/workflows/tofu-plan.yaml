@@ -7,13 +7,17 @@ env:
   AWS_REGION : "us-east-1"
 
 jobs:
-  terraform:
-    name: "Terraform"
+  tofu:
+    name: "Tofu Plan"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
       id-token: write
+    strategy:
+      max-parallel: 1
+      matrix:
+        layers: ["network", "compute"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -30,6 +34,58 @@ jobs:
       - name: "Configure Opentofu"
         uses: opentofu/setup-opentofu@v1
 
+      - name: Tofu Init
+        id: init
+        run: make init env=development layer=${{ matrix.layer }}
+
       - name: Tofu Plan
         id: plan
-        run: make plan env=development layer=network
+        run: make plan env=development layer=${{ matrix.layer }}
+
+      - name: Add plan output to PR
+        uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "tofu\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // 1. Retrieve existing bot comments for the PR
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const botComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('OpenTofu Format and Style')
+            })
+
+            // 2. Prepare format of the comment
+            #### OpenTofu Plan 📖\`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_actions_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
+            // 3. If we have a comment, update it, otherwise create a new one
+            if (botComment) {
+              github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+            }
