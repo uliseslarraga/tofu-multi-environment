@@ -54,3 +54,9 @@ variable "single_nat_gateway" {
   type        = bool
   default     = false
 }
+
+variable "enable_flow_logs" {
+  description = "Enable NAT Gateway for private subnets"
+  type        = bool
+  default     = true
+}
