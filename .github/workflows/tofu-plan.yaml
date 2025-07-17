@@ -57,12 +57,12 @@ jobs:
               issue_number: context.issue.number,
             })
             const botComment = comments.find(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes('OpenTofu Format and Style')
+              return comment.user.type === 'Bot' && comment.body.includes('OpenTofu Initialization for \`${{ matrix.layers }}\`')
             })
 
             // 2. Prepare format of the comment
-            const output = `#### OpenTofu Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### OpenTofu Plan 📖\`${{ steps.plan.outcome }}\`
+            const output = `#### OpenTofu Initialization for \`${{ matrix.layers }}\` layer ⚙️\`${{ steps.init.outcome }}\`
+            #### OpenTofu Plan for \`${{ matrix.layers }}\` layer 📖\`${{ steps.plan.outcome }}\`
 
             <details><summary>Show Plan</summary>
 
