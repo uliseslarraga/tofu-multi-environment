@@ -5,7 +5,7 @@ validate_workspace:
 	cd $(layer); \
 	tofu workspace select -or-create $(env)
 
-init:
+init: validate_workspace
 	@echo "Initializing layer with tofu init over $(layer) in $(env) environment"
 	cd $(layer); \
 	tofu init
