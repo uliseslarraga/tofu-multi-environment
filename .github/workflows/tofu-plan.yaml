@@ -38,6 +38,10 @@ jobs:
         id: init
         run: make init env=development layer=${{ matrix.layers }}
 
+      - name: Verifying workspace for ${{ matrix.layers }} layer
+        id: workspace
+        run: make validate_workspace env=development layer=${{ matrix.layers }}
+
       - name: Tofu Plan for ${{ matrix.layers }} layer
         id: plan
         run: make plan env=development layer=${{ matrix.layers }}
