@@ -1,10 +1,3 @@
-locals {
-  private_range = var.public_subnet_count
-  data_range    = sum([var.public_subnet_count,var.private_subnet_count]) 
-  environment   = terraform.workspace
-} 
-
-
 resource "aws_subnet" "public" {
   count                   = var.public_subnet_count
   vpc_id     = aws_vpc.this.id
