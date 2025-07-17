@@ -34,13 +34,13 @@ jobs:
       - name: "Configure Opentofu"
         uses: opentofu/setup-opentofu@v1
 
-      - name: Tofu Init
+      - name: Tofu Init for ${{ matrix.layers }} layer
         id: init
-        run: make init env=development layer=${{ matrix.layer }}
+        run: make init env=development layer=${{ matrix.layers }}
 
-      - name: Tofu Plan
+      - name: Tofu Plan for ${{ matrix.layers }} layer
         id: plan
-        run: make plan env=development layer=${{ matrix.layer }}
+        run: make plan env=development layer=${{ matrix.layers }}
 
       - name: Add plan output to PR
         uses: actions/github-script@v6
