@@ -8,4 +8,5 @@ module "network"{
     data_subnet_count    = var.data_subnet_count
     enable_nat_gateway   = var.enable_nat_gateway
     single_nat_gateway   = var.single_nat_gateway
+    enable_flow_logs     = var.enable_flow_logs 
 }
