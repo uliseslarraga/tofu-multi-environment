@@ -3,9 +3,9 @@ variable "aws_region" {
   type        = string
 }
 
-variable "tags" {
-  type        = any
-  description = "Common resource tags"
+variable "project" {
+  type        = string
+  description = "Project name used to tags and resource names"
 }
 
 variable "vpc_cidr" {
