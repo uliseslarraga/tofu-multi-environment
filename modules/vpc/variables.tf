@@ -1,3 +1,9 @@
+locals {
+  private_range = var.public_subnet_count
+  data_range    = sum([var.public_subnet_count,var.private_subnet_count]) 
+  environment   = terraform.workspace
+} 
+
 data "aws_availability_zones" "available_zones" {
   state = "available"
 }
@@ -57,4 +63,10 @@ variable "single_nat_gateway" {
   description = "Use single NAT Gateway for all private subnets"
   type        = bool
   default     = false
+}
+
+variable "enable_flow_logs" {
+  description = "Enable NAT Gateway for private subnets"
+  type        = bool
+  default     = true
 }
