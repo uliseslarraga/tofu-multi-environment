@@ -1,2 +1,5 @@
-aws_region       = "us-east-1"
-tags             = {terraform_provisioned = true, project = "three-tier-web-app"}
+project          = "web-app"
+instance_type    = "t2.micro"
+desired_capacity = 1
+max_size         = 3
+min_size         = 1
