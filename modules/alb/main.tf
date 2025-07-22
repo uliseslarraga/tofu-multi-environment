@@ -4,6 +4,7 @@ resource "aws_lb" "alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_security_group.id]
   subnets            = [for i in var.public_subnets : i]
+  tags = merge(local.common_tags, {Name = local.alb_name})
 }
 
 resource "aws_lb_target_group" "target_group" {

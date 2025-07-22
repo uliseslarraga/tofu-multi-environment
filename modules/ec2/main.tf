@@ -1,5 +1,5 @@
 resource "aws_launch_template" "web_app_lt" {
-  name = "web-app-launch-temp"
+  name = "${local.environment}-${local.project}-launch-temp"
   image_id = data.aws_ami.web_app_image.id
   instance_type = var.instance_type
   network_interfaces {
@@ -17,6 +17,7 @@ resource "aws_launch_template" "web_app_lt" {
 }
 
 resource "aws_autoscaling_group" "auto_scaling_group" {
+  name = "${local.environment}-${local.project}-asg"
   desired_capacity    = var.desired_capacity
   max_size            = var.max_size
   min_size            = var.min_size
