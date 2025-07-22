@@ -7,6 +7,7 @@ resource "aws_flow_log" "main" {
 }
 
 resource "aws_cloudwatch_log_group" "this" {
-    count           = var.enable_flow_logs ? 1 : 0
-    name = "vpc_flow_log_${local.environment}"
+    count             = var.enable_flow_logs ? 1 : 0
+    name              = "vpc_flow_log_${local.environment}"
+    retention_in_days = var.flow_logs_retention_days
 }
