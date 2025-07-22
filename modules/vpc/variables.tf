@@ -3,7 +3,7 @@ locals {
   data_range    = sum([var.public_subnet_count,var.private_subnet_count]) 
   environment   = terraform.workspace
   project       = var.project
-  prefix        = "${local.project}-${local.environment}"
+  prefix        = "${local.environment}"
   common_tags   = {terraform_provisioned = true, env = "${local.environment}", project = "${local.project}"}
 } 
 
