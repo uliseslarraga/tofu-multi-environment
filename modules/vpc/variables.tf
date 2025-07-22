@@ -2,20 +2,18 @@ locals {
   private_range = var.public_subnet_count
   data_range    = sum([var.public_subnet_count,var.private_subnet_count]) 
   environment   = terraform.workspace
+  project       = var.project
+  prefix        = "${local.environment}"
+  common_tags   = {terraform_provisioned = true, env = "${local.environment}", project = "${local.project}"}
 } 
 
 data "aws_availability_zones" "available_zones" {
   state = "available"
 }
 
-variable "tags" {
-  type        = any
-  description = "Common resource tags"
-}
-
-variable "environment" {
+variable "project" {
   type        = string
-  description = "Env name"
+  description = "Project name used to tags and resource names"
 }
 
 variable "vpc_cidr" {

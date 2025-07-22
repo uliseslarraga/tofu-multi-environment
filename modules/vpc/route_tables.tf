@@ -1,6 +1,6 @@
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
-  tags = merge({Name = "public"}, var.tags)
+  tags = merge(local.common_tags, {Name = "public"})
 }
 
 resource "aws_route" "public" {
@@ -18,7 +18,7 @@ resource "aws_route_table_association" "public_public" {
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.this.id
-  tags = merge({Name = "private"}, var.tags)
+  tags = merge(local.common_tags, {Name = "private"})
 }
 
 resource "aws_route" "private" {
