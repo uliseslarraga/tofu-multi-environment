@@ -12,7 +12,7 @@ data "aws_ami" "web_app_image" {
 
   filter {
     name   = "name"
-    values = ["[python-flask-app]"]
+    values = ["python-flask-app"]
   }
 
   filter {

@@ -1,4 +1,11 @@
 #!/bin/bash
+echo "Starting Cloudwatch Agent"
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+  -a fetch-config \
+  -m ec2 \
+  -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json \
+  -s
+echo "Initializing Web App"  
 sudo chmod -R 750 /home/ec2-user/webapp
 sudo chown -R /home/ec2-user/webapp
 cd  /home/ec2-user/webapp

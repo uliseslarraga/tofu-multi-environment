@@ -60,6 +60,11 @@ resource "aws_iam_role" "role" {
   managed_policy_arns = [aws_iam_policy.ssm.arn]
 }
 
+resource "aws_iam_role_policy_attachment" "cw_agent_attach" {
+  role       = aws_iam_role.role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+}
+
 resource "aws_iam_policy" "ssm" {
   name   = "ssm-policy-${local.environment}"
   policy = data.aws_iam_policy_document.ssm_policy.json
