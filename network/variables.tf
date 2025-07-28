@@ -66,3 +66,9 @@ variable "flow_logs_retention_days" {
   type        = number
   default     = 14
 }
+
+variable "enable_network_acls" {
+  description = "Enable ACLs for an extra layer of security"
+  type        = bool
+  default     = true
+}
