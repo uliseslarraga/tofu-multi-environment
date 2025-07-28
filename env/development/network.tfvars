@@ -8,3 +8,4 @@ enable_nat_gateway      = true #Determines if private networks are able to reach
 single_nat_gateway      = true #if false, it creates one eip per public subnet 
 enable_flow_logs        = true
 flow_logs_retention_days= 20
+enable_network_acls     = true
