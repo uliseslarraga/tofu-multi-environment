@@ -14,6 +14,9 @@ resource "aws_launch_template" "web_app_lt" {
   iam_instance_profile {
     arn = var.ec2_ip_arn
   }
+  monitoring {
+    enabled = true
+  }
 }
 
 resource "aws_autoscaling_group" "auto_scaling_group" {

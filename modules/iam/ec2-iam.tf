@@ -11,7 +11,17 @@ data "aws_iam_policy_document" "ssm_policy" {
       "ssmmessages:CreateControlChannel",
       "ssmmessages:CreateDataChannel",
       "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"
+      "ssmmessages:OpenDataChannel",
+      "ec2:DescribeTags",
+      "ec2:DescribeInstances",
+      "cloudwatch:PutMetricData",
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams",
+      "logs:DescribeLogGroups"
     ]
     resources = ["*"]
   }
@@ -58,6 +68,11 @@ resource "aws_iam_role" "role" {
   name               = "ec2_role_${local.environment}"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
   managed_policy_arns = [aws_iam_policy.ssm.arn]
+}
+
+resource "aws_iam_role_policy_attachment" "cw_agent_attach" {
+  role       = aws_iam_role.role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
 resource "aws_iam_policy" "ssm" {
