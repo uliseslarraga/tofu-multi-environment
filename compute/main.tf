@@ -26,3 +26,9 @@ module "ec2" {
     target_group_arn = module.alb.target_group_arn
     vpc_id           = data.terraform_remote_state.network.outputs.vpc_id
 }
+
+module "cloudwatch" {
+    source                 = "../modules/cloudwatch"
+    autoscaling_group_name = module.ec2.autoscaling_group_name
+    project                = var.project
+}

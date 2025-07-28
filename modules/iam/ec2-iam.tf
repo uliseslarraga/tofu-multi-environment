@@ -11,7 +11,17 @@ data "aws_iam_policy_document" "ssm_policy" {
       "ssmmessages:CreateControlChannel",
       "ssmmessages:CreateDataChannel",
       "ssmmessages:OpenControlChannel",
-      "ssmmessages:OpenDataChannel"
+      "ssmmessages:OpenDataChannel",
+      "ec2:DescribeTags",
+      "ec2:DescribeInstances",
+      "cloudwatch:PutMetricData",
+      "ssm:GetParameter",
+      "ssm:GetParameters",
+      "ssm:GetParametersByPath",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+      "logs:DescribeLogStreams",
+      "logs:DescribeLogGroups"
     ]
     resources = ["*"]
   }
