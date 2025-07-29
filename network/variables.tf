@@ -39,7 +39,7 @@ variable "data_subnet_count" {
   default     = 2
   validation {
     condition     = var.data_subnet_count >= 1 && var.data_subnet_count <= 6
-    error_message = "Private subnet count must be between 1 and 6."
+    error_message = "Data subnet count must be between 1 and 6."
   }
 }
 
@@ -56,7 +56,7 @@ variable "single_nat_gateway" {
 }
 
 variable "enable_flow_logs" {
-  description = "Enable NAT Gateway for private subnets"
+  description = "Enable VPC flow logs"
   type        = bool
   default     = true
 }
@@ -69,6 +69,12 @@ variable "flow_logs_retention_days" {
 
 variable "enable_network_acls" {
   description = "Enable ACLs for an extra layer of security"
+  type        = bool
+  default     = true
+}
+
+variable "enable_vpc_endpoints" {
+  description = "Enable VPC endpoints to consume AWS service by internal AWS network"
   type        = bool
   default     = true
 }
