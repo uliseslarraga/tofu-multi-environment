@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 locals {
   private_range = var.public_subnet_count
   data_range    = sum([var.public_subnet_count,var.private_subnet_count]) 
@@ -5,6 +7,7 @@ locals {
   project       = var.project
   prefix        = "${local.environment}"
   common_tags   = {terraform_provisioned = true, env = "${local.environment}", project = "${local.project}"}
+  public_cidrs  = aws_subnet.public[*].cidr_block
 } 
 
 data "aws_availability_zones" "available_zones" {
@@ -77,6 +80,12 @@ variable "flow_logs_retention_days" {
 
 variable "enable_network_acls" {
   description = "Enable ACLs for an extra layer of security"
+  type        = bool
+  default     = true
+}
+
+variable "enable_vpc_endpoints" {
+  description = "Enable VPC endpoints to consume AWS service by internal AWS network"
   type        = bool
   default     = true
 }

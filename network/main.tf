@@ -1,11 +1,14 @@
 module "network"{
-    source               = "../modules/vpc"
-    vpc_cidr             = var.vpc_cidr
-    project              = "web-app" 
-    public_subnet_count  = var.public_subnet_count
-    private_subnet_count = var.private_subnet_count
-    data_subnet_count    = var.data_subnet_count
-    enable_nat_gateway   = var.enable_nat_gateway
-    single_nat_gateway   = var.single_nat_gateway
-    enable_flow_logs     = var.enable_flow_logs 
+    source                   = "../modules/vpc"
+    vpc_cidr                 = var.vpc_cidr
+    project                  = "web-app" 
+    public_subnet_count      = var.public_subnet_count
+    private_subnet_count     = var.private_subnet_count
+    data_subnet_count        = var.data_subnet_count
+    enable_nat_gateway       = var.enable_nat_gateway
+    single_nat_gateway       = var.single_nat_gateway
+    enable_flow_logs         = var.enable_flow_logs 
+    flow_logs_retention_days = var.flow_logs_retention_days
+    enable_network_acls      = var.enable_network_acls
+    enable_vpc_endpoints     = var.enable_vpc_endpoints
 }
