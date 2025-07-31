@@ -7,6 +7,7 @@ locals {
   project       = var.project
   prefix        = "${local.environment}"
   common_tags   = {terraform_provisioned = true, env = "${local.environment}", project = "${local.project}"}
+  public_cidrs  = aws_subnet.public[*].cidr_block
 } 
 
 data "aws_availability_zones" "available_zones" {

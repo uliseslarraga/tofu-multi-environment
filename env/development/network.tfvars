@@ -8,5 +8,5 @@ enable_nat_gateway      = true #Determines if private networks are able to reach
 single_nat_gateway      = true #Single NAT for dev to save costs
 enable_flow_logs        = true #Disable for dev to save costs
 flow_logs_retention_days= 30
-enable_network_acls     = false #Disable for dev complexity
+enable_network_acls     = true #Disable for dev complexity
 enable_vpc_endpoints    = true #Disable for dev costs
